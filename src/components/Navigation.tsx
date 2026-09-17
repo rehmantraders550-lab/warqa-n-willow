@@ -1,27 +1,6 @@
 import React from 'react';
-
-const navItems = [
-  ['Truth', '#truth'],
-  ['Reasons', '#reasons'],
-  ['Atelier', '#atelier'],
-  ['Paper', '#materials'],
-  ['Making', '#making'],
-  ['Begin', '#begin'],
-];
+import { Leaf } from 'lucide-react';
 
 export function Navigation() {
-  return (
-    <header className="nav-wrap">
-      <a className="brand-mark" href="#top" aria-label="WARAQ & WILLOW home">
-        WARAQ & WILLOW
-      </a>
-      <nav className="main-nav" aria-label="Primary">
-        {navItems.map(([label, href]) => (
-          <a href={href} key={href}>
-            {label}
-          </a>
-        ))}
-      </nav>
-    </header>
-  );
+  return <header className="nav-wrap"><a className="brand-mark" href="#top" aria-label="WARAQ & WILLOW home"><Leaf aria-hidden="true" />WARAQ &amp; WILLOW<small>Letters for a more human world</small></a><nav className="main-nav" aria-label="Primary"><a href="#top">Letters</a><a href="#materials">Materials</a><a href="#house">The House</a><a href="#atelier">Atelier</a></nav><a className="nav-cta" href="#atelier">Begin a letter</a></header>;
 }

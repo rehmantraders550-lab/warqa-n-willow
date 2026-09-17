@@ -1,300 +1,71 @@
 import React, { useMemo, useState } from 'react';
-import {
-  ArrowRight,
-  BookOpenText,
-  Check,
-  ChevronRight,
-  Feather,
-  Mail,
-  PenLine,
-  Sparkles,
-} from 'lucide-react';
+import { ArrowRight, Feather, Leaf, Mail, MessageCircle, PenLine } from 'lucide-react';
 import { Navigation } from './components/Navigation';
+import arrivalsImage from './assets/waraq-arrivals-branded.png';
+import heroImage from './assets/waraq-hero-branded.png';
+import islamabadImage from './assets/waraq-islamabad-branded.png';
+import paperImage from './assets/waraq-paper-study.png';
 
-type AtelierChoice = {
-  tone: string;
-  intention: string;
-  paper: string;
-  presentation: string;
-};
-
-const reasons = [
-  'To say what should not vanish into a thread.',
-  'To give gratitude a body.',
-  'To mark a threshold, a return, an apology, a beginning.',
-  'To let someone keep the exact weight of your attention.',
+const philosophy = [
+  ['01', 'The Expression', "You share what’s in your heart. A thought. A feeling. A moment that matters."],
+  ['02', 'The Making', 'We shape your words with care into a letter that feels considered, beautiful and lasting.'],
+  ['03', 'The Arrival', 'It reaches them, a quiet reminder that they are seen, remembered and deeply valued.'],
 ];
-
-const materials = [
-  {
-    name: 'Cotton Rag',
-    note: 'Soft tooth, generous ink hold, made for letters that unfold slowly.',
-  },
-  {
-    name: 'Deckled Sheet',
-    note: 'A quiet edge for vows, blessings, and notes meant to feel found by hand.',
-  },
-  {
-    name: 'Pressed Willow',
-    note: 'A botanical impression for seasonal notes, family letters, and keepsakes.',
-  },
-  {
-    name: 'Warm Vellum',
-    note: 'Translucent overlays for a second voice: date, place, name, or small prayer.',
-  },
-];
-
-const arrivals = [
-  'Folded letter with addressed envelope',
-  'Sealed keepsake folio',
-  'Nested paper suite for gatherings',
-  'Hand-tied archive bundle',
-];
-
-const atelierOptions = {
-  tone: ['Tender', 'Ceremonial', 'Plainspoken'],
-  intention: ['Gratitude', 'Apology', 'Blessing'],
-  paper: ['Cotton Rag', 'Deckled Sheet', 'Pressed Willow'],
-  presentation: ['Envelope', 'Folio', 'Bundle'],
-};
-
-const sampleLines: Record<string, string> = {
-  Tender: 'I wanted this to arrive slowly, with room around every word.',
-  Ceremonial: 'Let this page hold the occasion with care and witness.',
-  Plainspoken: 'Here is the truth, simply kept and clearly given.',
-  Gratitude: 'Thank you for the shelter of your presence.',
-  Apology: 'I am writing because the repair deserves more than a passing sentence.',
-  Blessing: 'May what begins here be carried with steadiness and light.',
-};
+const paperNames = ['Cotton White', 'Warm Laid', 'Soft Ivory', 'Willow Grey'];
+const arrivalNames = [['The Letter', 'A single, beautifully written letter.'], ['With Envelope', 'Classic and elegant.'], ['Keepsake Folio', 'For letters meant to be kept.'], ['With Ribbon', 'A final, thoughtful touch.']];
 
 export default function App() {
-  const [choice, setChoice] = useState<AtelierChoice>({
-    tone: 'Tender',
-    intention: 'Gratitude',
-    paper: 'Cotton Rag',
-    presentation: 'Envelope',
-  });
-
-  const preview = useMemo(() => {
-    return [
-      'Dear you,',
-      sampleLines[choice.tone],
-      sampleLines[choice.intention],
-      `We would set it on ${choice.paper.toLowerCase()} and let it arrive as ${choice.presentation === 'Envelope' ? 'an' : 'a'} ${choice.presentation.toLowerCase()}, made to be opened by hand.`,
-      'With care,',
-      'WARAQ & WILLOW',
-    ];
-  }, [choice]);
-
-  const setAtelierChoice = (group: keyof AtelierChoice, value: string) => {
-    setChoice((current) => ({ ...current, [group]: value }));
-  };
+  const [recipient, setRecipient] = useState('My mother');
+  const [message, setMessage] = useState("Thank you for always being there, even when I didn’t have the words.");
+  const [memory, setMemory] = useState('A summer in Islamabad, 2016');
+  const [voice, setVoice] = useState('Warm & Personal');
+  const [paper, setPaper] = useState('Soft Ivory');
+  const [arrival, setArrival] = useState('Keepsake Folio');
+  const salutation = useMemo(() => recipient === 'My mother' ? 'My Dearest Mother,' : recipient === 'My father' ? 'My Dear Father,' : 'My Dear Friend,', [recipient]);
 
   return (
     <div className="site-shell">
       <Navigation />
       <main>
-        <section className="hero section" id="top" aria-labelledby="hero-title">
-          <div className="hero__paper" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
-          <div className="section__inner hero__inner">
-            <p className="eyebrow">Letters, composed and made by hand</p>
-            <h1 id="hero-title">The Letter</h1>
-            <p className="hero__lede">
-              WARAQ & WILLOW turns feeling into a written object: considered words,
-              beautiful paper, and a form that can be held, kept, and returned to.
-            </p>
-            <div className="hero__actions" aria-label="Primary actions">
-              <a className="button button--dark" href="#atelier">
-                Begin yours <ArrowRight aria-hidden="true" size={18} />
-              </a>
-              <a className="button button--light" href="#materials">
-                Explore paper <Feather aria-hidden="true" size={18} />
-              </a>
-            </div>
+        <section className="hero" id="top" aria-labelledby="hero-title">
+          <img className="hero__photo" src={heroImage} alt="Hands holding a WARAQ & WILLOW letter above a keepsake box" />
+          <div className="hero__content">
+            <p className="eyebrow">A more human world</p><h1 id="hero-title">The<br />Letter</h1>
+            <p>Thoughtful letters for the people who matter. Beautifully written, carefully crafted, made to be kept.</p>
+            <a className="button button--dark" href="#atelier">Begin a letter <ArrowRight size={15} /></a>
+            <blockquote>“Some feelings deserve more than a text.”</blockquote>
           </div>
         </section>
 
-        <section className="truth section" id="truth" aria-labelledby="truth-title">
-          <div className="section__inner split">
-            <div>
-              <p className="eyebrow">Something true given form</p>
-              <h2 id="truth-title">A letter is a place where attention becomes visible.</h2>
-            </div>
-            <div className="prose">
-              <p>
-                We write with you, not over you. The work begins with listening:
-                what happened, what must be said, what should remain unsaid, and
-                what kind of silence the page needs around it.
-              </p>
-              <p>
-                Then we shape the language, choose the paper, and prepare the
-                piece so it feels intimate without becoming ornate.
-              </p>
-            </div>
-          </div>
-        </section>
+        <section className="philosophy section" id="truth" aria-labelledby="truth-title"><div className="section__inner">
+          <header className="center-heading"><p className="eyebrow">Our philosophy</p><h2 id="truth-title">Something true, given form.</h2><p className="microcopy">Meaningful words. A calmer world.</p></header>
+          <div className="philosophy__grid">{philosophy.map(([number, title, copy]) => <article key={number}><span>{number}</span><div className="philosophy__mark" aria-hidden="true">{number === '01' ? <Feather /> : number === '02' ? <PenLine /> : <Mail />}</div><h3>{title}</h3><p>{copy}</p></article>)}</div>
+        </div></section>
 
-        <section className="reasons section" id="reasons" aria-labelledby="reasons-title">
-          <div className="section__inner">
-            <div className="section-heading">
-              <p className="eyebrow">Reasons we write</p>
-              <h2 id="reasons-title">Some words ask for a slower room.</h2>
-            </div>
-            <div className="reason-grid">
-              {reasons.map((reason, index) => (
-                <article className="reason" key={reason}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <p>{reason}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <section className="islamabad" id="house" aria-labelledby="house-title"><img src={islamabadImage} alt="Islamabad and Faisal Mosque at dusk beneath the Margalla Hills" loading="lazy" /><div className="islamabad__copy"><p className="eyebrow eyebrow--light">A quieter tomorrow</p><h2 id="house-title">More human<br />connections, always.</h2><p>From our home in Islamabad, we craft letters that carry what truly matters, across cities, countries and time.</p><a className="button button--outline" href="#atelier">Our story <ArrowRight size={15} /></a></div></section>
 
-        <section className="atelier section" id="atelier" aria-labelledby="atelier-title">
-          <div className="section__inner atelier__inner">
-            <div className="section-heading">
-              <p className="eyebrow">Letter Atelier</p>
-              <h2 id="atelier-title">Compose the outline of a letter.</h2>
-            </div>
-            <div className="atelier__workspace">
-              <form className="atelier__controls" aria-label="Letter atelier choices">
-                {Object.entries(atelierOptions).map(([group, values]) => (
-                  <fieldset key={group}>
-                    <legend>{group}</legend>
-                    <div className="segmented">
-                      {values.map((value) => {
-                        const active = choice[group as keyof AtelierChoice] === value;
-                        return (
-                          <button
-                            aria-pressed={active}
-                            className={active ? 'is-active' : ''}
-                            key={value}
-                            onClick={() => setAtelierChoice(group as keyof AtelierChoice, value)}
-                            type="button"
-                          >
-                            {active && <Check aria-hidden="true" size={15} />}
-                            {value}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </fieldset>
-                ))}
-              </form>
-              <aside className="letter-preview" aria-live="polite" aria-label="Live editorial letter preview">
-                <div className="letter-preview__sheet">
-                  {preview.map((line) => (
-                    <p key={line}>{line}</p>
-                  ))}
-                </div>
-              </aside>
-            </div>
-          </div>
-        </section>
+        <section className="atelier section" id="atelier" aria-labelledby="atelier-title"><div className="section__inner">
+          <header className="center-heading"><p className="eyebrow">The Letter Atelier</p><h2 id="atelier-title">A guided experience, from heart to hand.</h2><p>Answer a few simple questions, and we’ll help you craft a letter that feels just right.</p></header>
+          <div className="atelier__grid"><form className="atelier__form" aria-label="Letter atelier">
+            <Field number="1" label="Who is this for?"><select value={recipient} onChange={e => setRecipient(e.target.value)}><option>My mother</option><option>My father</option><option>A dear friend</option></select></Field>
+            <Field number="2" label="What have you been meaning to say?"><textarea value={message} onChange={e => setMessage(e.target.value)} /></Field>
+            <Field number="3" label="Is there a memory that belongs in the letter?"><input value={memory} onChange={e => setMemory(e.target.value)} /></Field>
+            <Field number="4" label="Choose the voice"><select value={voice} onChange={e => setVoice(e.target.value)}><option>Warm & Personal</option><option>Simple & Direct</option><option>Formal & Graceful</option></select></Field>
+            <Field number="5" label="Choose the paper"><select value={paper} onChange={e => setPaper(e.target.value)}>{paperNames.map(name => <option key={name}>{name}</option>)}</select></Field>
+            <Field number="6" label="Choose the arrival"><select value={arrival} onChange={e => setArrival(e.target.value)}>{arrivalNames.map(([name]) => <option key={name}>{name}</option>)}</select></Field>
+            <a className="button button--dark atelier__submit" href="#begin">See your letter <ArrowRight size={15} /></a>
+          </form><aside className="letter-stage" aria-live="polite" aria-label="Letter preview"><div className="letter-stage__tabs"><span>Letter Preview</span><span>Envelope</span><span>Presentation</span></div><div className="letter-sheet"><p className="letter-sheet__brand"><Leaf aria-hidden="true" /><br />WARAQ &amp; WILLOW</p><p className="letter-sheet__date">12 March 2026</p><p>{salutation}</p><p>There are so many things I haven’t quite said out loud, but they live here, in these words.</p><p>{message} {memory && `I still think of ${memory.toLowerCase()}.`}</p><p>I hope this letter finds you well, and reminds you of how deeply you are loved.</p><p>Always,<br />Your Son</p><small>{voice} · {paper} · {arrival}</small></div></aside></div>
+        </div></section>
 
-        <section className="materials section" id="materials" aria-labelledby="materials-title">
-          <div className="section__inner">
-            <div className="section-heading">
-              <p className="eyebrow">Paper becomes material</p>
-              <h2 id="materials-title">The Paper Cabinet</h2>
-            </div>
-            <div className="material-grid">
-              {materials.map((material) => (
-                <article className="material" key={material.name}>
-                  <div className="material__swatch" aria-hidden="true" />
-                  <h3>{material.name}</h3>
-                  <p>{material.note}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <section className="materials section" id="materials" aria-labelledby="materials-title"><div className="section__inner compact"><div className="section-row-heading"><div><p className="eyebrow">Paper becomes meaning</p><h2 id="materials-title">The right paper changes everything.</h2></div><p className="microcopy">Texture holds what words cannot.</p></div><div className="paper-strip">{paperNames.map((name, index) => <article key={name}><div className="paper-crop"><img src={paperImage} alt="" style={{ objectPosition: `${index * 33}% center` }} /></div><h3>{name}</h3><p>{['Clean. Timeless. Versatile.', 'Textured. Classic. Refined.', 'Gentle. Intimate. Enduring.', 'Quiet. Modern. Distinctive.'][index]}</p></article>)}</div></div></section>
 
-        <section className="making section" id="making" aria-labelledby="making-title">
-          <div className="section__inner split">
-            <div>
-              <p className="eyebrow">The Making</p>
-              <h2 id="making-title">From conversation to keepsake.</h2>
-            </div>
-            <ol className="timeline">
-              <li><span>Listen</span><p>A private prompt gathers the memory, tone, names, and occasion.</p></li>
-              <li><span>Write</span><p>The letter is drafted, refined, and balanced until it sounds like it belongs to you.</p></li>
-              <li><span>Form</span><p>Paper, fold, seal, and presentation are chosen to match the message.</p></li>
-              <li><span>Arrive</span><p>The finished piece is prepared for giving, keeping, or sending.</p></li>
-            </ol>
-          </div>
-        </section>
+        <section className="arrivals section" id="arrival" aria-labelledby="arrival-title"><div className="section__inner compact"><div className="section-row-heading"><div><p className="eyebrow">Ways it may arrive</p><h2 id="arrival-title">Considered details for a lasting impression.</h2></div><p className="microcopy">It’s more than a letter. It’s a keepsake.</p></div><div className="arrivals__visual"><img className="arrivals__image" src={arrivalsImage} alt="Four WARAQ & WILLOW letter presentation options" loading="lazy" /><span aria-hidden="true">WARAQ &amp; WILLOW</span></div><div className="arrivals__labels">{arrivalNames.map(([name, copy]) => <article key={name}><h3>{name}</h3><p>{copy}</p></article>)}</div></div></section>
 
-        <section className="arrival section" id="arrival" aria-labelledby="arrival-title">
-          <div className="section__inner">
-            <div className="section-heading">
-              <p className="eyebrow">Ways it may arrive</p>
-              <h2 id="arrival-title">Quiet forms for different kinds of saying.</h2>
-            </div>
-            <div className="arrival-list">
-              {arrivals.map((item) => (
-                <a href="#begin" key={item}>
-                  <BookOpenText aria-hidden="true" size={20} />
-                  <span>{item}</span>
-                  <ChevronRight aria-hidden="true" size={18} />
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="house section" id="house" aria-labelledby="house-title">
-          <div className="section__inner split">
-            <div>
-              <p className="eyebrow">Islamabad / House story</p>
-              <h2 id="house-title">Made from a city that understands pause.</h2>
-            </div>
-            <div className="prose">
-              <p>
-                WARAQ & WILLOW is imagined from Islamabad: a house of paper,
-                shade, measured hospitality, and careful words. The work borrows
-                its pace from mornings that open gently and evenings that ask
-                people to sit a little longer.
-              </p>
-              <p>
-                Every letter is treated as a guest: received with attention,
-                prepared with restraint, and sent onward with dignity.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="begin section" id="begin" aria-labelledby="begin-title">
-          <div className="section__inner begin__inner">
-            <Sparkles aria-hidden="true" size={28} />
-            <p className="eyebrow">Begin yours</p>
-            <h2 id="begin-title">Bring the feeling. We will help it find the page.</h2>
-            <a className="button button--dark" href="mailto:studio@waraqandwillow.com">
-              <Mail aria-hidden="true" size={18} />
-              Write to the studio
-            </a>
-          </div>
-        </section>
+        <section className="begin" id="begin" aria-labelledby="begin-title"><div><p className="eyebrow eyebrow--light">Letters move people</p><h2 id="begin-title">Begin Yours</h2><p>Turn what’s in your heart into a letter they’ll never forget.</p></div><div className="begin__actions"><a className="button button--light" href="mailto:studio@waraqandwillow.com">Begin a letter <ArrowRight size={15} /></a><a className="button button--outline" href="https://wa.me/923000000000"><MessageCircle size={16} /> Chat on WhatsApp</a></div></section>
       </main>
-
-      <footer className="footer" aria-label="WARAQ & WILLOW footer">
-        <div className="section__inner footer__inner">
-          <a className="footer__brand" href="#top">WARAQ & WILLOW</a>
-          <nav aria-label="Footer">
-            <a href="#truth">Truth</a>
-            <a href="#atelier">Atelier</a>
-            <a href="#materials">Paper</a>
-            <a href="#house">House</a>
-          </nav>
-          <p>Letters and paper forms from Islamabad.</p>
-          <PenLine aria-hidden="true" size={20} />
-        </div>
-      </footer>
+      <footer><strong>WARAQ &amp; WILLOW</strong><nav><a href="#top">Letters</a><a href="#materials">Materials</a><a href="#house">The House</a><a href="#atelier">Atelier</a><a href="#begin">Contact</a></nav><small>Small letters. A more human world.</small></footer>
     </div>
   );
 }
+
+function Field({ number, label, children }: { number: string; label: string; children: React.ReactNode }) { return <label className="field"><span className="field__number">{number}</span><span className="field__label">{label}</span>{children}</label>; }
