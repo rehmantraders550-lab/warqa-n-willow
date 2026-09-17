@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  /* WARAQ & WILLOW Core Palette */
+  --color-waraq: #F3F0E8;
+  --color-ink: #20211E;
+  --color-willow: #7A8473;
+  --color-deep-willow: #3D493F;
+  --color-mist: #D7D8D2;
+  --color-oxblood: #70453F;
+  --color-white: #FFFFFF;
+
+  /* Legacy aliases to prevent breakage in unedited chapters */
+  --color-bone: #F3F0E8;
+  --color-true-black: #20211E;
+  --color-optic-white: #FFFFFF;
+  --color-slate: #7A8473;
+
+  /* Typography */
+  --font-primary: "Playfair Display", serif;
+  --font-secondary: "Inter", sans-serif;
+  --font-urdu: "Noto Naskh Arabic", serif;
+
+  --ease-restrained: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* KHATT/W&W Strict Typographic Scale */
+  /* Editorial: Large, quiet, spacious, confident */
+  --text-editorial-display: 5rem;
+  --text-editorial-title: 3.5rem;
+  --text-editorial-heading: 2.5rem;
+  --text-editorial-body: 1.25rem;
+  
+  /* Precise: Small, restrained, technical */
+  --text-precise-body: 0.85rem;
+  --text-precise-meta: 0.65rem;
+  --text-precise-micro: 0.55rem;
+
+  /* Tracking (Letter Spacing) */
+  --tracking-editorial: -0.02em;
+  --tracking-precise: 0.15em;
+  --tracking-precise-loose: 0.2em;
+
+  /* Leading (Line Height) */
+  --leading-editorial: 1.1;
+  --leading-precise: 1.6;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
